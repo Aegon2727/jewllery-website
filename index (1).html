@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heirloom - Where Gold Tells Stories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1b1b1b;
+            line-height: 1.6;
+        }
+
+        body {
+            background-color: #faf9f8;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 884px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(252,249,248,0.2), rgba(252,249,248,0.8), rgba(252,249,248,0));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 448px;
+            width: 100%;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 25px 50px -12px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 320px;
+            border-radius: 12px 12px 0 0;
+            margin: -41px -41px 0 -41px;
+            object-fit: cover;
+        }
+
+        .hero-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 48px;
+            color: #1b1b1b;
+            margin-top: 32px;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            font-style: italic;
+            color: #4d4635;
+            margin-bottom: 32px;
+            line-height: 25.6px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gold {
+            background-color: #d4af37;
+            color: #554300;
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 15px 25px -3px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #735c00;
+            border: 1px solid #7f7663;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(211, 175, 55, 0.1);
+        }
+
+        /* Heritage Section */
+        .heritage-section {
+            padding: 96px 20px;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3.6px;
+            text-transform: uppercase;
+            color: #735c00;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 41.6px;
+            color: #1b1b1b;
+            margin-bottom: 16px;
+        }
+
+        .heritage-image {
+            width: 100%;
+            height: 256px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 24px;
+            box-shadow: 0px 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .stat-card {
+            backdrop-filter: blur(6px);
+            background: rgba(252,249,248,0.7);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 16px;
+            padding: 33px;
+            text-align: center;
+            border-left: 4px solid #d4af37;
+        }
+
+        .stat-card.silver {
+            border-left-color: #5d5e5f;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 600;
+            color: #735c00;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: -0.6px;
+            text-transform: uppercase;
+            color: #4d4635;
+        }
+
+        /* Collections Gallery */
+        .gallery-section {
+            background-color: #f6f3f2;
+            padding: 96px 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 222px;
+            object-fit: cover;
+        }
+
+        .gallery-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+            padding: 16px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item.tall .gallery-image {
+            height: 278px;
+        }
+
+        .see-more {
+            background: rgba(115, 92, 0, 0.1);
+            padding: 60px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .see-more:hover {
+            background: rgba(115, 92, 0, 0.15);
+        }
+
+        .see-more-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-style: italic;
+            color: #735c00;
+            margin-bottom: 8px;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 96px 20px;
+            background: white;
+        }
+
+        .timeline-header {
+            border-left: 2px solid #d4af37;
+            padding-left: 26px;
+            margin-bottom: 48px;
+        }
+
+        .timeline-items {
+            position: relative;
+            padding-left: 48px;
+        }
+
+        .timeline-items::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            bottom: 16px;
+            width: 1px;
+            background-color: #d0c5af;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 64px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -48px;
+            top: 4px;
+            width: 32px;
+            height: 32px;
+            background-color: #eae7e7;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .timeline-item-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #735c00;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item-text {
+            font-size: 16px;
+            font-style: italic;
+            color: #4d4635;
+            line-height: 26px;
+        }
+
+        /* Market Rates Section */
+        .rates-section {
+            background-color: #e5e2e1;
+            padding: 96px 20px;
+        }
+
+        .rates-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+        }
+
+        .rates-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 500;
+            color: #1b1b1b;
+        }
+
+        .rates-subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: -0.6px;
+            text-transform: uppercase;
+            color: #4d4635;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #735c00;
+            border-radius: 50%;
+        }
+
+        .rate-card {
+            backdrop-filter: blur(6px);
+            background: rgba(252,249,248,0.7);
+            border: 1px solid;
+            border-radius: 16px;
+            padding: 25px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-left: 4px solid #735c00;
+        }
+
+        .rate-card.silver {
+            border-left-color: #5d5e5f;
+        }
+
+        .rate-info h3 {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #4d4635;
+            margin-bottom: 3.5px;
+        }
+
+        .rate-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 600;
+            color: #1b1b1b;
+        }
+
+        .rate-icon {
+            width: 28px;
+            height: 16px;
+        }
+
+        .rates-note {
+            text-align: center;
+            font-size: 10px;
+            font-style: italic;
+            color: #4d4635;
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background: linear-gradient(135deg, rgba(252,249,248,0.7), rgba(252,249,248,0.9));
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 24px;
+            padding: 41px;
+            margin: 96px 20px;
+            box-shadow: 0px 25px 50px -12px rgba(0,0,0,0.25);
+            position: relative;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+        }
+
+        .star {
+            width: 20px;
+            height: 19px;
+        }
+
+        .testimonial-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-style: italic;
+            color: #1b1b1b;
+            line-height: 45.5px;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #d4af37;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-weight: 700;
+            color: #1b1b1b;
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #4d4635;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #313030;
+            color: #ffe088;
+            padding: 48px 20px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-link {
+            font-size: 16px;
+            font-style: italic;
+            color: #59422c;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #d4af37;
+        }
+
+        .footer-copyright {
+            font-size: 16px;
+            font-style: italic;
+            color: #59422c;
+            line-height: 25.6px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: white;
+            padding: 96px 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(252,249,248,0.7), rgba(252,249,248,0.9));
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 24px;
+            padding: 41px;
+            box-shadow: 0px 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
+        .form-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 500;
+            color: #1b1b1b;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #735c00;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1b1b1b;
+            font-family: 'Inter', sans-serif;
+            background-color: rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #735c00;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background-color: #d4af37;
+            color: #554300;
+            border: none;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+            margin-top: 16px;
+        }
+
+        .form-submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0px 15px 25px -3px rgba(0,0,0,0.15);
+        }
+
+        .form-submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item.tall {
+                grid-row: span 1;
+            }
+
+            .rates-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .live-indicator {
+                justify-content: center;
+            }
+
+            .testimonial-author {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://www.figma.com/api/mcp/asset/a385e190-6e87-4b24-97d2-35af2284cd01" alt="Hero Background" class="hero-bg">
+        <div class="hero-content">
+            <img src="https://www.figma.com/api/mcp/asset/f4e788d4-b0eb-499f-9376-50b2e23b9774" alt="Jewelry" class="hero-image">
+            <h1 class="hero-heading">Where Gold Tells Stories, and Silver Holds Memories.</h1>
+            <p class="hero-subtitle">Every ornament we create is more than metal—it is a symbol of love, tradition, and family.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-gold">EXPLORE COLLECTION</button>
+                <button class="btn btn-outline">CUSTOM ORDER</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heritage Section -->
+    <section class="heritage-section">
+        <div class="section-header">
+            <div class="section-label">TRADITION</div>
+            <h2 class="section-title">Our Heritage</h2>
+        </div>
+        <img src="https://www.figma.com/api/mcp/asset/f5cd9a21-3fc6-48d4-9217-31fb021594c8" alt="Heritage" class="heritage-image">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">YEARS EXPERIENCE</div>
+            </div>
+            <div class="stat-card silver">
+                <div class="stat-number">10k+</div>
+                <div class="stat-label">HAPPY FAMILIES</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">EGD</div>
+                <div class="stat-label">EXCLUSIVE GOLD DESIGNS</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Gallery -->
+    <section class="gallery-section">
+        <div class="section-header">
+            <h2 class="section-title">The Collection</h2>
+            <p style="font-size: 16px; font-style: italic; color: #4d4635; margin-top: 8px;">Curated beauty for every milestone.</p>
+        </div>
+        <div class="gallery-grid">
+            <div>
+                <div class="gallery-item">
+                    <img src="https://www.figma.com/api/mcp/asset/f3200575-c3f8-4b4e-b1ec-db06456838d4" alt="Gold Necklaces" class="gallery-image">
+                    <div class="gallery-label">GOLD NECKLACES</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.figma.com/api/mcp/asset/6c86aaef-9a76-4200-8e8d-a388d34b2629" alt="Silver Gifts" class="gallery-image">
+                    <div class="gallery-label">SILVER GIFTS</div>
+                </div>
+            </div>
+            <div>
+                <div class="gallery-item tall">
+                    <img src="https://www.figma.com/api/mcp/asset/cfd1d8e1-7bf3-4452-a2b8-b48cd0767728" alt="Bridal Collection" class="gallery-image">
+                    <div class="gallery-label">BRIDAL COLLECTION</div>
+                </div>
+                <div class="gallery-item see-more">
+                    <div class="see-more-text">See More</div>
+                    <div style="font-size: 12px; color: #735c00;">→</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="timeline-header">
+            <h2 class="section-title">The Journey of a Piece</h2>
+            <p style="font-size: 16px; color: #4d4635; margin-top: 8px; line-height: 24px;">From raw element to family heirloom.</p>
+        </div>
+        <div class="timeline-items">
+            <div class="timeline-item">
+                <div class="timeline-dot">✏️</div>
+                <h3 class="timeline-item-title">DESIGN</h3>
+                <p class="timeline-item-text">Collaborative sketches and digital renderings that bring your vision to life before the first touch of metal.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🔨</div>
+                <h3 class="timeline-item-title">HAND CRAFTING</h3>
+                <p class="timeline-item-text">Our masters hand-forge every link and set every stone with precision that machines cannot replicate.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">✨</div>
+                <h3 class="timeline-item-title">POLISHING</h3>
+                <p class="timeline-item-text">A multi-stage polishing process that ensures light dances across every surface of your finished piece.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">✓</div>
+                <h3 class="timeline-item-title">HALLMARK</h3>
+                <p class="timeline-item-text">Every piece is certified and hallmarked, guaranteeing the purity and provenance of your precious materials.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Rates Section -->
+    <section class="rates-section">
+        <div class="rates-header">
+            <div>
+                <h2 class="rates-title">Today's Market</h2>
+                <p class="rates-subtitle">LIVE PRECIOUS METAL RATES</p>
+            </div>
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span style="color: #735c00; font-weight: 600;">LIVE</span>
+            </div>
+        </div>
+        <div class="rate-card">
+            <div class="rate-info">
+                <h3>24K GOLD (10G)</h3>
+                <div class="rate-value">₹10000</div>
+            </div>
+            <div class="rate-icon">📈</div>
+        </div>
+        <div class="rate-card silver">
+            <div class="rate-info">
+                <h3>PURE SILVER (1KG)</h3>
+                <div class="rate-value">₹110.00</div>
+            </div>
+            <div class="rate-icon">📉</div>
+        </div>
+        <p class="rates-note">*Rates are subject to market volatility. Last updated 2 mins ago.</p>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="testimonial-stars">
+            <img src="https://www.figma.com/api/mcp/asset/a4d64485-91f5-4385-8abc-34460234ad35" alt="Star" class="star">
+            <img src="https://www.figma.com/api/mcp/asset/a4d64485-91f5-4385-8abc-34460234ad35" alt="Star" class="star">
+            <img src="https://www.figma.com/api/mcp/asset/a4d64485-91f5-4385-8abc-34460234ad35" alt="Star" class="star">
+            <img src="https://www.figma.com/api/mcp/asset/a4d64485-91f5-4385-8abc-34460234ad35" alt="Star" class="star">
+            <img src="https://www.figma.com/api/mcp/asset/a4d64485-91f5-4385-8abc-34460234ad35" alt="Star" class="star">
+        </div>
+        <p class="testimonial-text">"Heirloom didn't just make a ring for my daughter; they crafted a piece of our history. The attention to detail and the personal touch made the whole process unforgettable."</p>
+        <div class="testimonial-author">
+            <img src="https://www.figma.com/api/mcp/asset/e3bfa095-fe6b-4d14-b62c-183292fb0765" alt="Eleanor Vance" class="author-avatar">
+            <div class="author-info">
+                <h4>Eleanor Vance</h4>
+                <p>LOYAL CLIENT SINCE 1998</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="form-container">
+            <h2 class="form-heading">Get in Touch</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <button type="submit" class="form-submit-btn" id="submitBtn">SUBMIT</button>
+                <div id="formMessage" class="form-message"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">HEIRLOOM</div>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Ethical Sourcing</a>
+            <a href="#" class="footer-link">Contact Us</a>
+            <a href="#" class="footer-link">Store Locator</a>
+        </div>
+        <p class="footer-copyright">© 2024 Heirloom Jewelry. Crafted with care. Worn with pride. Remembered forever.</p>
+    </footer>
+
+    <script>
+        // Google Apps Script URL - REPLACE WITH YOUR NEW DEPLOYMENT URL
+        // Format should be: https://script.google.com/macros/d/YOUR_DEPLOYMENT_ID/usercodeapp
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzwfILQSsgz50G5xoZW1uraQaaAoIpoqpiRJgc0vjgcQDzHPX1t62WMbRieUbRwr4R4A/exec';
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+
+            // Validate inputs
+            if (!name || !email || !phone) {
+                showError('All fields are required');
+                return;
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'SUBMITTING...';
+
+            // Build URL with query parameters
+            const url = SCRIPT_URL + '?' + new URLSearchParams({
+                name: name,
+                email: email,
+                phone: phone
+            }).toString();
+
+            // Fetch with no-cors mode (critical for file:// protocol)
+            fetch(url, {
+                method: 'GET',
+                mode: 'no-cors'
+            })
+            .then(() => {
+                // Success - response is opaque in no-cors mode
+                showSuccess();
+                document.getElementById('contactForm').reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'SUBMIT';
+            })
+            .catch((error) => {
+                // Error occurred
+                showError('Error submitting form. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'SUBMIT';
+            });
+        });
+
+        function showSuccess() {
+            const formMessage = document.getElementById('formMessage');
+            formMessage.textContent = '✓ Thank you! Your message has been sent successfully.';
+            formMessage.className = 'form-message success';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMessage.className = 'form-message';
+            }, 5000);
+        }
+
+        function showError(message) {
+            const formMessage = document.getElementById('formMessage');
+            formMessage.textContent = '✗ ' + message;
+            formMessage.className = 'form-message error';
+        }
+    </script>
+</body>
+</html>
